@@ -2,7 +2,6 @@ package com.tjportas.pedidos.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tjportas.pedidos.entity.Orcamento;
 import com.tjportas.pedidos.entity.Troca;
 import com.tjportas.pedidos.repository.TrocaRepository;
 
@@ -20,24 +19,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
-public class TrocaController {  
+public class TrocaController {
 
-         @Autowired
-     TrocaRepository repository;
+    @Autowired
+    TrocaRepository repository;
 
-         // Create - Post
-        @PostMapping("/troca")
-    public ResponseEntity<Troca> salvarTroca(@RequestBody Troca troca) {
+    // Create - Post
+    @PostMapping("/troca")
+    public ResponseEntity<Troca> salvar(@RequestBody Troca troca) {
         Troca trocaSalva = repository.save(troca);
 
         return new ResponseEntity<>(trocaSalva, HttpStatus.OK);
     }
-     
+
     // Read - Get
     @GetMapping("/troca")
-    public ResponseEntity<List<Troca>> listarTrocas() {
+    public ResponseEntity<List<Troca>> listar() {
         List<Troca> trocas = new ArrayList<>();
         repository.findAll().forEach(trocas::add);
 
@@ -45,12 +43,12 @@ public class TrocaController {
     }
 
     // Update - Put
-    @PutMapping("/troca/{id}")  
-    public ResponseEntity<Troca> atualizarTroca(@PathVariable Long id, @RequestBody Troca troca) {
+    @PutMapping("/troca/{id}")
+    public ResponseEntity<Troca> atualizar(@PathVariable Long id, @RequestBody Troca troca) {
 
         Optional<Troca> trocaExistente = repository.findById(id);
 
-             if (trocaExistente.isPresent()) {
+        if (trocaExistente.isPresent()) {
             Troca trocaAtualizado = trocaExistente.get();
             trocaAtualizado.setDataTroca(troca.getDataTroca());
             trocaAtualizado.setMotivo(troca.getMotivo());
@@ -65,11 +63,11 @@ public class TrocaController {
 
     // Delete - Delete
     @DeleteMapping("/troca/{id}")
-         public ResponseEntity<Troca> deletar(@PathVariable Long id) {
-     
-          repository.deleteById(id);
-     
-          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-     }
+    public ResponseEntity<Troca> deletar(@PathVariable Long id) {
+
+        repository.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

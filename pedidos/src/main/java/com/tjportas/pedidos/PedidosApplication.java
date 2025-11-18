@@ -1,14 +1,14 @@
-package com.tjportas.pedidos.repository;
+package com.tjportas.pedidos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 
-public class OrcamentoApplicarion {
+public class PedidosApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrcamentoApplicarion.class, args);
+        SpringApplication.run(PedidosApplication.class, args);
     }
 
 

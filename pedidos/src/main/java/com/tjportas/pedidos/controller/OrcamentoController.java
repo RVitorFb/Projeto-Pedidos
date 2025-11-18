@@ -3,7 +3,6 @@ package com.tjportas.pedidos.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.tjportas.pedidos.repository.OrcamentoRepository;
 
-
 import com.tjportas.pedidos.entity.Orcamento;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +26,15 @@ public class OrcamentoController {
 
     // Create - Post
     @PostMapping("/orcamento")
-    public ResponseEntity<Orcamento> salvarOrcamento(@RequestBody Orcamento orcamento) {
+    public ResponseEntity<Orcamento> salvar(@RequestBody Orcamento orcamento) {
         Orcamento orcamentoSalvo = repository.save(orcamento);
 
         return new ResponseEntity<>(orcamentoSalvo, HttpStatus.OK);
     }
 
     // Read - Get
-    @GetMapping("/orcamento")   
-    public ResponseEntity<List<Orcamento>> listarOrcamentos() {
+    @GetMapping("/orcamento")
+    public ResponseEntity<List<Orcamento>> listar() {
         List<Orcamento> orcamentos = new ArrayList<>();
         repository.findAll().forEach(orcamentos::add);
 
@@ -43,12 +42,12 @@ public class OrcamentoController {
     }
 
     // Update - Put
-    @PutMapping("/orcamento/{id}")  
-    public ResponseEntity<Orcamento> atualizarOrcamento(@PathVariable Long id, @RequestBody Orcamento orcamento) {
+    @PutMapping("/orcamento/{id}")
+    public ResponseEntity<Orcamento> atualizar(@PathVariable Long id, @RequestBody Orcamento orcamento) {
 
         Optional<Orcamento> orcamentoExistente = repository.findById(id);
 
-             if (orcamentoExistente.isPresent()) {
+        if (orcamentoExistente.isPresent()) {
             Orcamento orcamentoAtualizado = orcamentoExistente.get();
             orcamentoAtualizado.setDataOrcamento(orcamento.getDataOrcamento());
             orcamentoAtualizado.setValorTotal(orcamento.getValorTotal());
@@ -61,9 +60,9 @@ public class OrcamentoController {
         }
     }
 
-     // Delete - Delete
-    @DeleteMapping("/orcamento/{id}")   
-    public ResponseEntity<Void> deletarOrcamento(@PathVariable Long id) {
+    // Delete - Delete
+    @DeleteMapping("/orcamento/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         Optional<Orcamento> orcamentoExistente = repository.findById(id);
 
         if (orcamentoExistente.isPresent()) {
@@ -73,7 +72,5 @@ public class OrcamentoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
 
 }

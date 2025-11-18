@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class VendaController {
 
-       @Autowired
+    @Autowired
     VendaRepository repository;
 
-       // Create - Post
+    // Create - Post
     @PostMapping("/Venda")
-    public ResponseEntity<Venda> salvarVenda(@RequestBody Venda venda) {
+    public ResponseEntity<Venda> salvar(@RequestBody Venda venda) {
         Venda vendaSalva = repository.save(venda);
 
         return new ResponseEntity<>(vendaSalva, HttpStatus.OK);
     }
-    
+
     // Read - Get
     @GetMapping("/venda")
-    public ResponseEntity<List<Venda>> listarVendas() {
+    public ResponseEntity<List<Venda>> listar() {
         List<Venda> venda = new ArrayList<>();
         repository.findAll().forEach(venda::add);
 
@@ -43,8 +43,8 @@ public class VendaController {
     }
 
     // Update - Put
-    @PutMapping("/venda/{id}") 
-    public ResponseEntity<Venda> atualizarVenda(@PathVariable Long id, @RequestBody Venda venda) {
+    @PutMapping("/venda/{id}")
+    public ResponseEntity<Venda> atualizar(@PathVariable Long id, @RequestBody Venda venda) {
 
         Optional<Venda> vendaDesatualizada = repository.findById(id);
 
@@ -62,7 +62,7 @@ public class VendaController {
 
     // Delete - Delete
     @DeleteMapping("/venda/{id}")
-       public ResponseEntity<Venda> deletar(@PathVariable Long id) {
+    public ResponseEntity<Venda> deletar(@PathVariable Long id) {
 
         repository.deleteById(id);
 
