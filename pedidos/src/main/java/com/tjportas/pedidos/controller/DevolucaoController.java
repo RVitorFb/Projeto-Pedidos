@@ -4,6 +4,7 @@ package com.tjportas.pedidos.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tjportas.pedidos.entity.Devolucao;
+import com.tjportas.pedidos.entity.Orcamento;
 import com.tjportas.pedidos.repository.DevolucaoRepository;
 
 import java.util.ArrayList;
@@ -46,15 +47,16 @@ public class DevolucaoController {
     }
 
     // Update - Put
-    @PutMapping("/devolucoes/{id}")
-    public ResponseEntity<Devolucao> atualizarDevolucao(@PathVariable Long id, @RequestBody Devolucao devolucao) {
+    @PutMapping("/devolucao/{id}")
+    public ResponseEntity<Devolucao> atualizar(@PathVariable Long id, @RequestBody Devolucao devolucao) {
 
         Optional<Devolucao> devolucaoDesatualizada = repository.findById(id);
 
-        if (devolucaoDesatualizada.isPresent()) {
+       if (devolucaoDesatualizada.isPresent()) {
             Devolucao devolucaoAtualizada = devolucaoDesatualizada.get();
-            devolucaoAtualizada.setDevolucao(devolucao.getDevolucao());
-            
+            devolucaoAtualizado.setProduto(devolucao.getProduto());
+            devolucaoAtualizado.setMotivo(devolucao.getMotivo());
+            devolucaoAtualizado.setDataDevolucao(devolucao.getDataDevolucao());
 
             repository.save(devolucaoAtualizada);
             return new ResponseEntity<>(devolucaoAtualizada, HttpStatus.OK);
